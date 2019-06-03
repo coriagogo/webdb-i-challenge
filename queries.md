@@ -51,16 +51,26 @@ where ContactName = 'Bilbo Baggins'
 
 ## list orders grouped by customer showing the number of orders per customer. _Rattlesnake Canyon Grocery_ should have 7 orders.
 
-** STRETCH **
+select CustomerName, COUNT(Orders.CustomerID) as TotalOrderQuantity
+from Customers join Orders on (Orders.CustomerID = Customers.CustomerID)
+group by Orders.CustomerID
 
 ## list customers names and the number of orders per customer. Sort the list by number of orders in descending order. _Ernst Handel_ should be at the top with 10 orders followed by _QUICK-Stop_, _Rattlesnake Canyon Grocery_ and _Wartian Herkku_ with 7 orders each.
 
-** STRETCH **
+select CustomerName, COUNT(Orders.CustomerID) as TotalOrderQuantity
+from Customers join Orders on (Orders.CustomerID = Customers.CustomerID)
+group by Orders.CustomerID
+order by TotalOrderQuantity desc
 
 ## list orders grouped by customer's city showing number of orders per city. Returns 58 Records with _Aachen_ showing 2 orders and _Albuquerque_ showing 7 orders.
 
-** STRETCH **
+Select Customers.City, count (Orders.OrderId) 
+from Customers 
+join Orders on Customers.CustomerID = Orders.CustomerID 
+group by Customers.City
 
 ## delete all users that have no orders. Should delete 17 (or 18 if you haven't deleted the record added) records.
 
-** STRETCH **
+delete from Customers 
+where CustomerID 
+not in (SELECT DISTINCT CustomerID from orders order by CustomerID desc)
